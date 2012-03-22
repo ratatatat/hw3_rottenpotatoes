@@ -22,8 +22,16 @@ Background: movies have been added to database
   And I am on the RottenPotatoes home page
 
 Scenario: sort movies alphabetically
-  # your steps here
 
+  Given I check all ratings for the movies
+  When  I submit the ratings filter
+  And   I select to sort movies by title
+  Then  I should see "Amelie" before "Chocolat"
+  But   I should not see "Chocolat" before "Amelie"
+  
 Scenario: sort movies in increasing order of release date
-  # your steps here
-
+  Given I check all ratings for the movies
+  When  I submit the ratings filter
+  And   I select to sort movies by release date
+  Then  I should see "Chicken Run" before "Amelie"
+  But   I should not see "Amelie" before "Chicken Run"

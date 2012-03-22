@@ -22,14 +22,21 @@ Background: movies have been added to database
   And  I am on the RottenPotatoes home page
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
-  # enter step(s) to check the 'PG' and 'R' checkboxes
-  # enter step(s) to uncheck all other checkboxes
-  # enter step to "submit" the search form on the homepage
-  # enter step(s) to ensure that PG and R movies are visible
-  # enter step(s) to ensure that other movies are not visible
 
-Scenario: no ratings selected
-  # see assignment
+  Given I check the following rating checkboxes: PG, R
+  And   I uncheck the following rating checkboxes: PG-13, G
+  When  I submit the ratings filter
+  Then  I should see PG,R rated movies
+  But   I shouldn't see other rated movies
+
+  Scenario: no ratings selected
+  
+  Given I uncheck all ratings for the movies
+  When  I submit the ratings filter
+  Then  I should see no movies
 
 Scenario: all ratings selected
-  # see assignment
+  
+  Given I check all ratings for the movies
+  When  I submit the ratings filter
+  Then  I should see all of the movies
